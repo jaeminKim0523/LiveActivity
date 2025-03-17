@@ -43,5 +43,27 @@ info.plist에 추가 할 수 있는 LiveActivity의 두가지 항목이 있다.<
 원하는 항목들을 추가 후 값을 YES로 변경해주면 된다.
 
 ## 위젯 실행
+```
+guard ActivityAuthorizationInfo().areActivitiesEnabled else { return }
 
+let initialContentState = LiveActivityAttributes.ContentState(text: "Temp")
+let activityAttributes = LiveActivityAttributes(name: "Francesco")
 
+do {
+    
+    let activity = try Activity.request(attributes: activityAttributes,
+                                        contentState: initialContentState,
+                                        pushType: .token)
+    
+    Task {
+        for await pushToken in activity.pushTokenUpdates {
+            let pushTokenString = pushToken.reduce("") {
+                $0 + String(format: "%02x", $1)
+            }
+            // pushTokenString - 해당 토큰으로 푸시 메세지 전달
+        }
+    }
+} catch (let error) {
+    print("Error requesting Lockscreen Live Activity.")
+}
+```
