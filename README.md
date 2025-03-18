@@ -44,6 +44,7 @@ info.plist에 추가 할 수 있는 LiveActivity의 두가지 항목이 있다.<
 
 ## 위젯 테스트 코드
 LiveActivity.swift 파일의 내용에 다들 비슷하게 추가되었을 것이다.
+간단한 테스트를 위해 ContentState와 ActivityConfiguration의 내용만 조금 수정했다.
 ```
 struct KakaoVXBookingLiveActivityAttributes: ActivityAttributes {
     public struct ContentState: Codable, Hashable {
@@ -115,3 +116,15 @@ do {
 }
 ```
 위젯이 실행 될 위치에 해당 코드를 넣어주면 된다.
+
+## 테스트 진행
+```
+"aps": {
+        "event": "update",
+        "content-state": {
+            "text": "francesco.k"
+        },
+        "timestamp": 1741154225,
+    }
+```
+PushNotification을 통해 APNS를 이용해서 메세지를 보낼때 위 내용을 추가해서 보내주면 다이나믹 아일랜드에 적용이된다.
